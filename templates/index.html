@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center">Stock Price Prediction</h1>
+        <form method="POST" class="my-4">
+            <div class="input-group mb-3">
+                <input type="text" name="ticker" class="form-control" placeholder="Enter Stock Ticker (e.g., SBIN.BO)" value="{{ ticker }}">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {% if plots %}
+            <h2 class="mt-4">Graphs</h2>
+            <div class="row">
+                {% for plot in plots %}
+                    <div class="col-md-6 my-3">
+                        <img src="data:image/png;base64,{{ plot }}" class="img-fluid" alt="Graph">
+                    </div>
+                {% endfor %}
+            </div>
+
+            <h2 class="mt-4">Metrics</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>R² Score:</strong> {{ metrics.r2_score }}</li>
+                <li class="list-group-item"><strong>Mean Squared Error:</strong> {{ metrics.mse }}</li>
+            </ul>
+        {% endif %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
